@@ -1,18 +1,15 @@
 import { name, random } from "faker";
 import { remove } from "lodash";
 
-class Caesar {
-  constructor(name) {
-    this.name = `Caesar ${name}`;
-    this.decisions = ["Finish him", "Live"];
-  }
+const screen = document.querySelector(".content-box");
 
-  start(fighters) {
-    fighters.forEach((fighter) => {
-      fighter.hit(fighters);
-    });
-  }
-}
+const startBtn = document.createElement("button");
+
+startBtn.innerText = "Start";
+
+startBtn.classList.add("start-btn");
+
+screen.append(startBtn);
 
 class Gladiator {
   static count = 0;
@@ -44,9 +41,9 @@ class Gladiator {
   set health(value) {
     this._health = value;
 
-    // if (this._health <= 30) {
-    //   this.speed *= 3;
-    // }
+    if (this._health <= 30) {
+      this.speed *= 3;
+    }
   }
 
   get power() {
@@ -66,8 +63,6 @@ class Gladiator {
   }
 
   hit(fighters) {
-    const time = (6 - this.speed) * 1000;
-
     const enemyIndex = random.number({
       min: 0,
       max: Gladiator.count - 1,
@@ -77,23 +72,11 @@ class Gladiator {
 
     enemy.health -= this.power;
 
-    setTimeout(this.hit.bind(this, fighters), time);
-
     return `${this} hits ${enemy} with power ${this.power}`;
   }
 
-  recover(fighters) {
-    fighters.forEach((fighter) => {
-      if (fighters.health <= 0) {
-        fighter.health += 50;
-      }
-    });
-  }
-
-  leave(fighters) {
-    remove(fighters, (fighter) => {
-      return fighter.health <= 0;
-    });
+  recover() {
+    this.health += 50;
   }
 
   toString() {
@@ -105,8 +88,6 @@ class Gladiator {
 
 // setTimeout(this.hit.bind(this), time);
 
-const cesar = new Caesar("Julius");
-
 const a = new Gladiator();
 const b = new Gladiator();
 const c = new Gladiator();
@@ -114,8 +95,6 @@ const c = new Gladiator();
 // const e = new Gladiator();
 
 const gladiators = [a, b, c];
-
-cesar.start(gladiators);
 
 // gladiators.forEach((k) => {
 //   k.hit(gladiators);
@@ -150,3 +129,18 @@ cesar.start(gladiators);
 // };
 
 // fight(gladiators);
+
+startBtn.addEventListener("click", () => {
+  screen.style.alignItems = "flex-start";
+
+  gladiators.forEach((fighter) => {
+    const intervalID = setInterval(() => {
+      if (fighter.health <= 0) {
+        clearInterval(intervalID);
+      }
+      screen.innerText += fighter.hit(gladiators) + "\n";
+    }, fighter.speed * 1000);
+  });
+
+  startBtn.parentNode.removeChild(startBtn);
+});
