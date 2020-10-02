@@ -47,7 +47,19 @@ body {
   box-shadow: 3px 3px 10px rgb(0, 0, 0, 0.8);
   color: rgb(0, 0, 0);
   background-color: rgb(255, 255, 255);
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.start-btn {
+  margin: auto 0;
+  padding: 10px 20px;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.start-btn:hover {
+  color: rgb(0, 61, 153);
 }
 
 .page-foot {
