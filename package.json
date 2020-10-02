@@ -1,0 +1,21 @@
+{
+  "name": "rome-battle",
+  "version": "1.0.0",
+  "description": "Rome Battle",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel ./public/index.html",
+    "build": "parcel build ./public/index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "faker": "^5.1.0",
+    "lodash": "^4.17.20"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  }
+}
